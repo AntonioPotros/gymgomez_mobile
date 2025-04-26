@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Button;
 
 public class InfoActivity extends AppCompatActivity {
 
@@ -16,6 +17,21 @@ public class InfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
+
+
+
+        Button btnLogout = findViewById(R.id.btnLogout);
+
+        btnLogout.setOnClickListener(view -> {
+            SessionManagerActivity sessionManager = new SessionManagerActivity(InfoActivity.this);
+            sessionManager.clearSession(); // Borramos el token
+
+            Intent intent = new Intent(InfoActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpia el stack
+            startActivity(intent);
+            finish();
+        });
+
 
         tvInfo = findViewById(R.id.tvInfo);
         btnLogout = findViewById(R.id.btnLogout);
